@@ -1,0 +1,20 @@
+GF180 conservative current-density/EM screen
+
+Technology LEF: /foss/pdks/gf180mcuD/libs.ref/gf180mcu_fd_sc_mcu7t5v0/techlef/gf180mcu_fd_sc_mcu7t5v0__nom.tlef
+Line limit: 0.67 mA/um (DC, unidirectional, 125 C)
+Via limit:  0.18 mA/via (DC, unidirectional, 125 C)
+Wire current density uses each layer's MINWIDTH from the technology LEF,
+so it is conservative when the actual routed shape is wider.
+
+VDD original rows checked: 182396
+VDD worst line: 0.027910 mA on Metal1, limit usage 18.112% (CSV row 128421)
+VDD worst via:  0.023830 mA on Metal1->Metal2, limit usage 13.239% (CSV row 86034)
+
+VSS original rows checked: 162542
+VSS worst line: 0.021850 mA on Metal1, limit usage 14.179% (CSV row 114966)
+VSS worst via:  0.022080 mA on Metal1->Metal2, limit usage 12.267% (CSV row 53181)
+
+OVERALL: PASS
+
+This is a project-side conservative screen. OpenROAD's original
+per-segment values remain in em-VDD.csv and em-VSS.csv.

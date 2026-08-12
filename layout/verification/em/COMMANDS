@@ -1,0 +1,1 @@
+openroad -exit -no_splash /foss/designs/lstm16x_int8_gf180_1000x1000/scripts/openroad_em_current_density.tcl
