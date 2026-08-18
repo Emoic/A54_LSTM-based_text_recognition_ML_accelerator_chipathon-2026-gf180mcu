@@ -4,16 +4,58 @@
 # http://www.apache.org/licenses/
 # ----- ------ ----- ----- ------ ----- ----- ------ -----
 
-# data will be pulled from main branch of the repo.
-# please be sure that the main branch contains the data you want to submit.
-# This file will be updated with more information later
-
-# ======================================================
-# Project metadata (used for documentation / review)
-# ======================================================
+# Pin order follows the organizer's upper-left-quadrant convention:
+# clockwise from the bottom-left of the padframe to the upper-right.
 project:
-  title: "LSTM-Based Accelerator for Data Processing"  # Project title (e.g. "Simple CPU", "PLL", "ADC")
-  team: "A54_Waibibabu"         # Your Team name
-  discord: "cissy07838"                   # Optional: Discord username (for support / communication)
-  description: "Build a compact GF180 digital accelerator prototype for quantized 8-input LSTM inference under the Block A pin constraint."  # Short one-line description
+  title: "16-Lane INT8 LSTM Accelerator"
+  team: "A54_Waibibabu"
+  discord: "cissy07838"
+  description: "A 16-lane INT8 LSTM accelerator implemented as a 1000 um x 1000 um GF180MCU digital macro with a 22-pin core interface."
   lvs_config: "lvs_config.json"
+
+pins:
+  - name: "rsp_data[0]"
+    io_type: bidirectional
+  - name: "rsp_data[1]"
+    io_type: bidirectional
+  - name: "rsp_data[2]"
+    io_type: bidirectional
+  - name: "rsp_data[3]"
+    io_type: bidirectional
+  - name: "rsp_data[4]"
+    io_type: bidirectional
+  - name: "rsp_data[5]"
+    io_type: bidirectional
+  - name: "rsp_data[6]"
+    io_type: bidirectional
+  - name: "rsp_data[7]"
+    io_type: bidirectional
+  - name: rsp_valid
+    io_type: bidirectional
+  - name: VDD
+    io_type: power
+  - name: clk
+    io_type: input_schmitt
+  - name: rst_n
+    io_type: input_schmitt
+  - name: cmd_valid
+    io_type: input_cmos
+  - name: "cmd_data[0]"
+    io_type: input_cmos
+  - name: "cmd_data[1]"
+    io_type: input_cmos
+  - name: "cmd_data[2]"
+    io_type: input_cmos
+  - name: "cmd_data[3]"
+    io_type: input_cmos
+  - name: "cmd_data[4]"
+    io_type: input_cmos
+  - name: "cmd_data[5]"
+    io_type: input_cmos
+  - name: "cmd_data[6]"
+    io_type: input_cmos
+  - name: "cmd_data[7]"
+    io_type: input_cmos
+
+# VSS remains a required core pin in the GDS/LEF. It is intentionally not
+# requested as an external pad because the organizer provides common ground.
