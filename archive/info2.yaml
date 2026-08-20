@@ -14,10 +14,6 @@ project:
   lvs_config: "lvs_config.json"
 
 pins:
-  - name: VSS
-    io_type: ground
-  - name: VDD
-    io_type: power
   - name: "rsp_data[0]"
     io_type: bidirectional
   - name: "rsp_data[1]"
@@ -36,6 +32,8 @@ pins:
     io_type: bidirectional
   - name: rsp_valid
     io_type: bidirectional
+  - name: VDD
+    io_type: power
   - name: clk
     io_type: input_schmitt
   - name: rst_n
@@ -59,5 +57,5 @@ pins:
   - name: "cmd_data[7]"
     io_type: input_cmos
 
-# VSS is first so it maps to the quadrant's fixed down-bonded ground pad.
-# VDD immediately follows VSS so the single supply has an adjacent return.
+# VSS remains a required core pin in the GDS/LEF. It is intentionally not
+# requested as an external pad because the organizer provides common ground.
