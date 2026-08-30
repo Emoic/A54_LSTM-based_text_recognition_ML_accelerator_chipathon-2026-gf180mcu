@@ -1,0 +1,63 @@
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+# Chipathon 2026: Project configuration
+# LICENSE: Apache License Version 2.0
+# http://www.apache.org/licenses/
+# ----- ------ ----- ----- ------ ----- ----- ------ -----
+
+# Pin order follows the organizer's upper-left-quadrant convention:
+# clockwise from the bottom-left of the padframe to the upper-right.
+project:
+  title: "16-Lane INT8 LSTM Accelerator"
+  team: "A54_Waibibabu"
+  discord: "cissy07838"
+  description: "A 16-lane INT8 LSTM accelerator implemented as a 1000 um x 1000 um GF180MCU digital macro with a 22-pin core interface."
+  lvs_config: "lvs_config.json"
+
+pins:
+  - name: VSS
+    io_type: ground
+  - name: VDD
+    io_type: power
+  - name: "rsp_data[0]"
+    io_type: bidirectional
+  - name: "rsp_data[1]"
+    io_type: bidirectional
+  - name: "rsp_data[2]"
+    io_type: bidirectional
+  - name: "rsp_data[3]"
+    io_type: bidirectional
+  - name: "rsp_data[4]"
+    io_type: bidirectional
+  - name: "rsp_data[5]"
+    io_type: bidirectional
+  - name: "rsp_data[6]"
+    io_type: bidirectional
+  - name: "rsp_data[7]"
+    io_type: bidirectional
+  - name: rsp_valid
+    io_type: bidirectional
+  - name: clk
+    io_type: input_schmitt
+  - name: rst_n
+    io_type: input_schmitt
+  - name: cmd_valid
+    io_type: input_cmos
+  - name: "cmd_data[0]"
+    io_type: input_cmos
+  - name: "cmd_data[1]"
+    io_type: input_cmos
+  - name: "cmd_data[2]"
+    io_type: input_cmos
+  - name: "cmd_data[3]"
+    io_type: input_cmos
+  - name: "cmd_data[4]"
+    io_type: input_cmos
+  - name: "cmd_data[5]"
+    io_type: input_cmos
+  - name: "cmd_data[6]"
+    io_type: input_cmos
+  - name: "cmd_data[7]"
+    io_type: input_cmos
+
+# VSS is first so it maps to the quadrant's fixed down-bonded ground pad.
+# VDD immediately follows VSS so the single supply has an adjacent return.
