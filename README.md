@@ -25,10 +25,6 @@ revised connection used in the submitted GDS.
 
 ![A54 power connections before and after the update](docs/images/power_connections_before_after.png)
 
-The final DEF still matches the organizer template: the origin is `(0, 0)`, the
-boundary is `1110 um x 1110 um`, and all 125 internal wrapper terminals keep
-their original names, directions, uses, and locations.
-
 The submitted `gds/A54_A.gds` was also exported without KLayout PCell or library
 context information. Geometry XOR against the signoff source GDS is 0. Magic
 DRC and Netgen LVS were rerun on this exact file: DRC count is 0 and LVS reports
