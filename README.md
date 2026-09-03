@@ -20,16 +20,6 @@ inputs with weak pulls disabled.
 
 ## What changed in this update
 
-The LSTM RTL, the 22 external pad assignments, and the organizer-provided pin
-locations were not changed. This update addresses the power-entry issue found
-during the A54 integration review.
-
-The earlier wrapper connected each supply through one 0.6 um Metal2 branch and
-one via cut. The revised wrapper uses every one of the six VDD and six VSS
-Metal2 access shapes. Each access shape now has its own 2.0 um Metal2 strap into
-the core power grid, with four `Via1_2CUT_H` arrays per strap. This gives 24 via
-arrays and 48 cuts on each supply net.
-
 The left side of the figure is the previous connection. The right side is the
 revised connection used in the submitted GDS.
 
