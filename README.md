@@ -18,30 +18,42 @@ The response pads are configured as outputs (`OE=1`, `IE=0`) with weak pulls
 disabled.  Clock, reset, command-valid, and command-data pads are configured as
 inputs with weak pulls disabled.
 
-The current signoff-complete implementation is in the LibreLane run
-`synthesis/runs/A54_A_wrapper_strong_power3`. Its final DEF contains the same die area,
-pin names, pin uses, pin directions, and absolute pin geometries as the organizer
-template. The submitted GDS also contains one top-level boundary shape on layer
-0/0 from `(0, 0)` to `(1110, 1110) um`.
+## What changed in this update
 
-For integration safety, the submitted `gds/A54_A.gds` was re-streamed with
-KLayout PCell and library context information disabled
-(`SaveLayoutOptions.write_context_info = false`). A geometry XOR against the
-signoff source GDS reports 0 differences. Magic DRC and Netgen LVS were then
-rerun directly on this context-free GDS and both passed (DRC count 0; circuits
-match uniquely).
+The LSTM RTL, the 22 external pad assignments, and the organizer-provided pin
+locations were not changed. This update addresses the power-entry issue found
+during the A54 integration review.
 
-The submitted GDS database unit is 0.001 um, as required for reliable KLayout
-DRC. A 0.001 um to 0.005 um integration conversion and back to 0.001 um was
-also tested; the round-trip geometry XOR reports 0 differences and preserves
-the `(0, 0)` to `(1110, 1110) um` physical boundary.
+The earlier wrapper connected each supply through one 0.6 um Metal2 branch and
+one via cut. The revised wrapper uses every one of the six VDD and six VSS
+Metal2 access shapes. Each access shape now has its own 2.0 um Metal2 strap into
+the core power grid, with four `Via1_2CUT_H` arrays per strap. This gives 24 via
+arrays and 48 cuts on each supply net.
 
-The organizer DEF's VDD and VSS terminals each consist of six separate Metal2
-port shapes. The strengthened implementation connects all six access shapes on
-each net to the core power grid with six independent 2.0 um-wide Metal2 straps.
-Each strap uses four `Via1_2CUT_H` arrays (eight cuts), for 24 via arrays and 48
-cuts per supply net. This replaces the previous single 0.6 um Metal2 branch and
-single-cut via while preserving every organizer pin shape.
+The left side of the figure is the previous connection. The right side is the
+revised connection used in the submitted GDS.
+
+![A54 power connections before and after the update](docs/images/power_connections_before_after.png)
+
+The final DEF still matches the organizer template: the origin is `(0, 0)`, the
+boundary is `1110 um x 1110 um`, and all 125 internal wrapper terminals keep
+their original names, directions, uses, and locations.
+
+The submitted `gds/A54_A.gds` was also exported without KLayout PCell or library
+context information. Geometry XOR against the signoff source GDS is 0. Magic
+DRC and Netgen LVS were rerun on this exact file: DRC count is 0 and LVS reports
+`Circuits match uniquely`.
+
+## DBU and integration
+
+The A54 GDS is already at a database unit of 0.001 um, so the recent DBU notice
+does not require another layout change for this project. The DRC/LVS recheck was
+performed on the 0.001 um GDS.
+
+We also tested the same file through the integration conversion:
+`0.001 um -> 0.005 um -> 0.001 um`. The round-trip XOR is 0 on every layout
+layer, and the `1110 um x 1110 um` boundary is unchanged. The organizer's
+automatic DBU conversion therefore does not alter the A54 geometry.
 
 Run the wrapper RTL test from this directory:
 
